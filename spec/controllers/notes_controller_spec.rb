@@ -14,5 +14,15 @@ RSpec.describe NotesController, type: :controller do
       expect(response).to have_http_status(:success)
     end
   end
+  describe "notes#create action" do 
+    it "should successfully create a note in our database" do 
+      post :create, params: { note: { title: 'Hello!', note: 'Well, hello there!' } }
+      expect(response).to redirect_to root_path
+
+      note = Note.last
+      expect(note.title).to eq('Hello!')
+      expect(note.note).to eq('Well, hello there!')
+    end
+  end
   
 end
